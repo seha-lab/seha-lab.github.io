@@ -1,0 +1,1284 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEHA | INTRO</title>
+    <style>
+      :root {
+        --bg: #050816;
+        --bg2: #0b1024;
+        --panel: rgba(255, 255, 255, 0.08);
+        --line: rgba(255, 255, 255, 0.14);
+        --text: #eef4ff;
+        --muted: #9fb3d9;
+        --accent: #79a7ff;
+        --accent2: #8ef7ff;
+        --accent3: #c68bff;
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        --radius: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Pretendard", "Segoe UI", system-ui, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(121, 167, 255, 0.16),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 80% 30%,
+            rgba(198, 139, 255, 0.18),
+            transparent 24%
+          ),
+          radial-gradient(
+            circle at 50% 80%,
+            rgba(142, 247, 255, 0.14),
+            transparent 26%
+          ),
+          linear-gradient(160deg, var(--bg), var(--bg2));
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      .noise,
+      .grid,
+      .glow {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .grid {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.045) 1px,
+            transparent 1px
+          );
+        background-size: 48px 48px;
+        mask-image: radial-gradient(
+          circle at center,
+          black 35%,
+          transparent 90%
+        );
+        opacity: 0.4;
+      }
+
+      .glow::before,
+      .glow::after {
+        content: "";
+        position: absolute;
+        width: 42vw;
+        height: 42vw;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.22;
+        animation: drift 12s ease-in-out infinite alternate;
+      }
+
+      .glow::before {
+        left: -10vw;
+        top: 5vh;
+        background: #4d7dff;
+      }
+
+      .glow::after {
+        right: -6vw;
+        bottom: 0;
+        background: #8c4dff;
+        animation-duration: 15s;
+      }
+
+      @keyframes drift {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          transform: translate3d(4vw, -2vh, 0) scale(1.12);
+        }
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(18px);
+        background: rgba(5, 8, 22, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+        gap: 16px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+      }
+
+      .logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(
+          135deg,
+          rgba(121, 167, 255, 0.95),
+          rgba(142, 247, 255, 0.85)
+        );
+        color: #081122;
+        box-shadow: 0 12px 28px rgba(121, 167, 255, 0.35);
+        transform-style: preserve-3d;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .menu a,
+      .hero-actions a,
+      .slide-btn,
+      .contact-card a {
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .menu a {
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        transition: 0.25s ease;
+        font-size: 14px;
+      }
+
+      .menu a:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(121, 167, 255, 0.45);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      section {
+        padding: 90px 0;
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        align-items: center;
+        padding-top: 40px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 32px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--accent2);
+        font-size: 14px;
+        box-shadow: var(--shadow);
+      }
+
+      h1 {
+        font-size: clamp(48px, 10vw, 120px);
+        line-height: 0.95;
+        margin: 20px 0 18px;
+        letter-spacing: -0.05em;
+      }
+
+      .title-line {
+        display: block;
+        transform: translateY(24px);
+        opacity: 0;
+        animation: reveal 0.8s ease forwards;
+      }
+
+      .title-line:nth-child(2) {
+        animation-delay: 0.12s;
+      }
+      .title-line:nth-child(3) {
+        animation-delay: 0.24s;
+      }
+
+      .gradient-text {
+        background: linear-gradient(
+          90deg,
+          #ffffff,
+          #8ef7ff 35%,
+          #79a7ff 70%,
+          #c68bff
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      @keyframes reveal {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .hero-desc {
+        max-width: 680px;
+        color: var(--muted);
+        font-size: clamp(16px, 2.2vw, 20px);
+        line-height: 1.8;
+        margin-bottom: 24px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .btn {
+        padding: 14px 20px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        transition: 0.25s ease;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: var(--shadow);
+      }
+
+      .btn.primary {
+        background: linear-gradient(
+          135deg,
+          rgba(121, 167, 255, 0.95),
+          rgba(142, 247, 255, 0.88)
+        );
+        color: #081122;
+        border-color: transparent;
+      }
+
+      .btn:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+      }
+
+      .hero-visual {
+        perspective: 3000px;
+      }
+
+      .stack {
+        position: relative;
+        min-height: 580px;
+        transform-style: preserve-3d;
+      }
+
+      .float-card {
+        position: absolute;
+        inset: auto;
+        border-radius: 28px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.06)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+        overflow: hidden;
+        transform-style: preserve-3d;
+        animation: float 5s ease-in-out infinite;
+      }
+
+      .float-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.16),
+          transparent 45%,
+          transparent 55%,
+          rgba(121, 167, 255, 0.16)
+        );
+        pointer-events: none;
+      }
+
+      .card-main {
+        right: 20px;
+        top: 28px;
+        width: min(100%, 420px);
+        height: 540px;
+        padding: 22px;
+        z-index: 2;
+
+        --tx: 0px;
+        --ty: 0px;
+        --tz: 0px;
+        --rx: 4deg;
+        --ry: -8deg;
+
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .card-mini.one {
+        left: -8px;
+        top: 110px;
+        width: 200px;
+        height: 132px;
+        padding: 16px;
+        z-index: 3;
+
+        --tx: 0px;
+        --ty: 0px;
+        --tz: 80px;
+        --rx: -4deg;
+        --ry: 12deg;
+
+        animation: float 5.6s ease-in-out infinite;
+        animation-delay: -1.2s;
+      }
+
+      .card-mini.two {
+        left: 100%;
+        top: 350px;
+        width: 210px;
+        height: 150px;
+        padding: 16px;
+        z-index: 1;
+
+        /* 메인 카드 오른쪽 바깥으로 빼기 */
+        --tx: -65%;
+        --ty: 0px;
+        --tz: 60px;
+        --rx: 4deg;
+        --ry: -16deg;
+
+        animation: float 5.2s ease-in-out infinite;
+        animation-delay: -2s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(var(--tx), var(--ty)) translateZ(var(--tz))
+            rotateX(var(--rx)) rotateY(var(--ry));
+        }
+
+        50% {
+          transform: translate(var(--tx), calc(var(--ty) - 12px))
+            translateZ(var(--tz)) rotateX(var(--rx)) rotateY(var(--ry));
+        }
+      }
+
+      .window-top {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.34);
+      }
+
+      .preview-box {
+        border-radius: 24px;
+        height: 270px;
+        background:
+          linear-gradient(
+            150deg,
+            rgba(121, 167, 255, 0.24),
+            rgba(142, 247, 255, 0.12)
+          ),
+          rgba(4, 10, 24, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 18px;
+      }
+
+      .orb,
+      .ring {
+        position: absolute;
+        border-radius: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .orb {
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #fff,
+          #8ef7ff 30%,
+          #79a7ff 65%,
+          rgba(121, 167, 255, 0.35)
+        );
+        box-shadow: 0 0 60px rgba(121, 167, 255, 0.55);
+        animation: pulse 4s ease-in-out infinite;
+      }
+
+      .ring {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        animation: spin 12s linear infinite;
+      }
+
+      .ring.r1 {
+        width: 170px;
+        height: 170px;
+      }
+      .ring.r2 {
+        width: 220px;
+        height: 220px;
+        animation-direction: reverse;
+      }
+      .ring.r3 {
+        width: 280px;
+        height: 280px;
+        animation-duration: 18s;
+      }
+
+      @keyframes spin {
+        from {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.12);
+        }
+      }
+
+      .specs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .spec {
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .spec b {
+        display: block;
+        font-size: 14px;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+
+      .spec span {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-size: clamp(30px, 5vw, 56px);
+        letter-spacing: -0.04em;
+      }
+
+      .section-title p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 600px;
+        line-height: 1.8;
+      }
+
+      .glass-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .glass-card {
+        position: relative;
+        padding: 28px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+        overflow: hidden;
+        transition: 0.3s ease;
+      }
+
+      .glass-card:hover {
+        transform: translateY(-10px) rotateX(6deg);
+        border-color: rgba(121, 167, 255, 0.42);
+      }
+
+      .glass-card .tag {
+        display: inline-flex;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(121, 167, 255, 0.16);
+        color: var(--accent2);
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .glass-card h3 {
+        margin: 0 0 12px;
+        font-size: 24px;
+      }
+
+      .glass-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .slider-shell {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: var(--shadow);
+      }
+
+      .slides {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+        width: 100%;
+      }
+
+      .slide {
+        min-width: 100%;
+        padding: 42px;
+        display: grid;
+        grid-template-columns: 1fr 0.9fr;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .slide-copy h3 {
+        margin: 0 0 14px;
+        font-size: clamp(28px, 4vw, 48px);
+      }
+
+      .slide-copy p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.9;
+        font-size: 17px;
+      }
+
+      .slide-visual {
+        position: relative;
+        height: 360px;
+        border-radius: 28px;
+        background: linear-gradient(
+          150deg,
+          rgba(121, 167, 255, 0.18),
+          rgba(198, 139, 255, 0.14),
+          rgba(142, 247, 255, 0.08)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+      }
+
+      .cube {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        transform-style: preserve-3d;
+        animation: rotateCube 10s linear infinite;
+      }
+
+      .cube div {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(10px);
+        box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.06);
+      }
+
+      .cube .front {
+        transform: translateZ(70px);
+      }
+      .cube .back {
+        transform: rotateY(180deg) translateZ(70px);
+      }
+      .cube .left {
+        transform: rotateY(-90deg) translateZ(70px);
+      }
+      .cube .right {
+        transform: rotateY(90deg) translateZ(70px);
+      }
+      .cube .top {
+        transform: rotateX(90deg) translateZ(70px);
+      }
+      .cube .bottom {
+        transform: rotateX(-90deg) translateZ(70px);
+      }
+
+      @keyframes rotateCube {
+        from {
+          transform: rotateX(-20deg) rotateY(0deg);
+        }
+        to {
+          transform: rotateX(-20deg) rotateY(360deg);
+        }
+      }
+
+      .planet {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 30%,
+          #fff,
+          #9cd5ff 18%,
+          #6b7fff 48%,
+          #5031d4 78%
+        );
+        box-shadow: 0 0 80px rgba(121, 167, 255, 0.35);
+      }
+
+      .planet::before {
+        content: "";
+        position: absolute;
+        inset: -18px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.22);
+        transform: rotateX(74deg) rotateZ(18deg);
+      }
+
+      .bars {
+        display: flex;
+        align-items: end;
+        gap: 14px;
+        height: 210px;
+      }
+
+      .bars span {
+        width: 42px;
+        border-radius: 14px 14px 8px 8px;
+        background: linear-gradient(
+          180deg,
+          rgba(142, 247, 255, 0.9),
+          rgba(121, 167, 255, 0.5)
+        );
+        box-shadow: 0 16px 32px rgba(121, 167, 255, 0.18);
+        animation: bars 2.2s ease-in-out infinite;
+      }
+
+      .bars span:nth-child(2) {
+        animation-delay: -0.2s;
+      }
+      .bars span:nth-child(3) {
+        animation-delay: -0.4s;
+      }
+      .bars span:nth-child(4) {
+        animation-delay: -0.6s;
+      }
+
+      @keyframes bars {
+        0%,
+        100% {
+          transform: scaleY(0.85);
+        }
+        50% {
+          transform: scaleY(1.08);
+        }
+      }
+
+      .slider-controls {
+        position: absolute;
+        inset: auto 24px 24px auto;
+        display: flex;
+        gap: 10px;
+      }
+
+      .slide-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        cursor: pointer;
+        font-size: 20px;
+        transition: 0.25s ease;
+      }
+
+      .slide-btn:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .timeline {
+        display: grid;
+        gap: 18px;
+      }
+
+      .timeline-item {
+        position: relative;
+        padding: 26px 26px 26px 86px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: var(--shadow);
+      }
+
+      .timeline-item::before {
+        content: attr(data-step);
+        position: absolute;
+        left: 24px;
+        top: 24px;
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        font-weight: 800;
+        color: #081122;
+        background: linear-gradient(135deg, #8ef7ff, #79a7ff);
+        box-shadow: 0 10px 20px rgba(121, 167, 255, 0.25);
+      }
+
+      .timeline-item h3 {
+        margin: 0 0 10px;
+        font-size: 24px;
+      }
+
+      .timeline-item p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.9;
+      }
+
+      .contact-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .contact-card {
+        padding: 30px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: var(--shadow);
+      }
+
+      .contact-card h3 {
+        margin: 0 0 14px;
+        font-size: 28px;
+      }
+
+      .contact-card p {
+        color: var(--muted);
+        line-height: 1.9;
+        margin: 0 0 18px;
+      }
+
+      .contact-card a {
+        display: inline-flex;
+        padding: 14px 18px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-weight: 700;
+        transition: 0.25s ease;
+      }
+
+      .contact-card a:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      footer {
+        padding: 40px 0 70px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .reveal-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 1024px) {
+        .hero-grid,
+        .slide,
+        .contact-wrap,
+        .glass-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-visual {
+          order: -1;
+        }
+        .stack {
+          min-height: 520px;
+        }
+        .card-mini.one,
+        .card-mini.two {
+          display: none;
+        }
+        .card-main {
+          position: relative;
+          width: 100%;
+          right: auto;
+          top: auto;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .wrap {
+          width: min(100% - 20px, 1200px);
+        }
+        .nav {
+          padding: 14px 0;
+        }
+        .menu {
+          gap: 8px;
+        }
+        .menu a {
+          font-size: 13px;
+          padding: 9px 12px;
+        }
+        section {
+          padding: 72px 0;
+        }
+        .hero {
+          min-height: auto;
+        }
+        .slide {
+          padding: 24px;
+        }
+        .slider-controls {
+          position: static;
+          padding: 0 24px 24px;
+          justify-content: flex-end;
+        }
+        .timeline-item {
+          padding: 78px 20px 22px 20px;
+        }
+        .timeline-item::before {
+          left: 20px;
+          top: 20px;
+        }
+        .specs {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise"></div>
+    <div class="grid"></div>
+    <div class="glow"></div>
+
+    <header>
+      <div class="wrap nav">
+        <div class="brand">
+          <div class="logo">S</div>
+          <div>SEHA / INTRO</div>
+        </div>
+        <nav class="menu">
+          <a href="#about">ABOUT</a>
+          <a href="#showcase">SHOWCASE</a>
+          <a href="#journey">JOURNEY</a>
+          <a href="#contact">CONTACT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <div class="eyebrow">✦ Creative Developer / Builder / Dreamer</div>
+            <h1>
+              <span class="title-line">HELLO,</span>
+              <span class="title-line gradient-text">I'M SEHA</span>
+              <span class="title-line">AND I BUILD IMPACT.</span>
+            </h1>
+            <p class="hero-desc">
+              감각적인 화면, 몰입감 있는 인터랙션, 그리고 한 번 보면 기억에 남는
+              경험. 저는 단순히 페이지를 만드는 사람이 아니라,
+              <b>분위기와 인상을 설계하는 사람</b>입니다.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#showcase">대표 섹션 보기 ↘</a>
+              <a class="btn" href="#contact">연락하기 ✦</a>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="stack">
+              <div class="float-card card-main">
+                <div class="window-top">
+                  <span class="dot"></span><span class="dot"></span
+                  ><span class="dot"></span>
+                </div>
+                <div class="preview-box">
+                  <div class="ring r3"></div>
+                  <div class="ring r2"></div>
+                  <div class="ring r1"></div>
+                  <div class="orb"></div>
+                </div>
+                <div class="specs">
+                  <div class="spec">
+                    <b>Style</b
+                    ><span>3D 감성 · 글래스모피즘 · 미래적인 무드</span>
+                  </div>
+                  <div class="spec">
+                    <b>Motion</b
+                    ><span>부드러운 패럴랙스 · 리빌 애니메이션 · 슬라이드</span>
+                  </div>
+                  <div class="spec">
+                    <b>Focus</b
+                    ><span>기억에 남는 자기소개 · 시선 끄는 랜딩</span>
+                  </div>
+                  <div class="spec">
+                    <b>Identity</b
+                    ><span>세하만의 분위기 · 유니크한 인상 · 존재감</span>
+                  </div>
+                </div>
+              </div>
+              <div class="float-card card-mini one">
+                <div class="tag">AURA</div>
+                <h3 style="margin: 0 0 10px">01</h3>
+                <p style="margin: 0; color: var(--muted); line-height: 1.7">
+                  처음 보자마자 분위기로 압도하는 소개 페이지
+                </p>
+              </div>
+              <div class="float-card card-mini two">
+                <div class="tag">VISION</div>
+                <h3 style="margin: 0 0 10px">02</h3>
+                <p style="margin: 0; color: var(--muted); line-height: 1.7">
+                  보는 순간 “오, 이 사람 뭔가 다르다”라는 인상
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="wrap">
+          <div class="section-title reveal-up">
+            <h2>About Me</h2>
+            <p>
+              이 섹션은 단순한 자기소개가 아니라, 세하라는 이름이 가진 에너지와
+              스타일을 보여주기 위한 공간입니다. 아래 카드들에 원하는 소개
+              문장으로 바꾸면 바로 간지나는 소개 사이트가 됩니다.
+            </p>
+          </div>
+          <div class="glass-grid">
+            <article class="glass-card reveal-up">
+              <div class="tag">IDENTITY</div>
+              <h3>세하라는 이름</h3>
+              <p>
+                새로운 것을 만들고, 복잡한 문제를 구조적으로 정리하고, 보는
+                사람이 감탄하는 결과물을 만드는 사람.
+              </p>
+            </article>
+            <article class="glass-card reveal-up">
+              <div class="tag">SKILLS</div>
+              <h3>만드는 방식</h3>
+              <p>
+                HTML, CSS, JavaScript를 바탕으로 애니메이션, 인터랙션, UI 구조를
+                직접 설계해 분위기 있는 결과물을 만듭니다.
+              </p>
+            </article>
+            <article class="glass-card reveal-up">
+              <div class="tag">MINDSET</div>
+              <h3>추구하는 것</h3>
+              <p>
+                평범한 화면보다 기억에 남는 화면. 단순한 소개보다 인상 깊은
+                경험. 보기만 해도 매력이 느껴지는 웹사이트.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="showcase">
+        <div class="wrap">
+          <div class="section-title reveal-up">
+            <h2>Showcase</h2>
+            <p>
+              슬라이드로 핵심 특징을 보여주는 구간입니다. 자동 전환도 되고,
+              버튼으로 직접 넘길 수도 있습니다. 카드 속 문장을 원하는 포트폴리오
+              소개로 바꾸시면 됩니다.
+            </p>
+          </div>
+
+          <div class="slider-shell reveal-up">
+            <div class="slides" id="slides">
+              <article class="slide">
+                <div class="slide-copy">
+                  <h3>Immersive UI</h3>
+                  <p>
+                    스크롤을 내릴수록 분위기가 깊어지고, 요소가 자연스럽게
+                    살아나는 몰입형 UI. 정적인 자기소개가 아니라 한 편의
+                    오프닝처럼 느껴지는 화면을 목표로 했습니다.
+                  </p>
+                </div>
+                <div class="slide-visual">
+                  <div class="cube">
+                    <div class="front"></div>
+                    <div class="back"></div>
+                    <div class="left"></div>
+                    <div class="right"></div>
+                    <div class="top"></div>
+                    <div class="bottom"></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="slide">
+                <div class="slide-copy">
+                  <h3>Visual Identity</h3>
+                  <p>
+                    ‘세하’라는 이름이 가진 이미지를 하나의 세계관처럼
+                    표현했습니다. 푸른 광채, 미래적인 입체감, 그리고 부드러운
+                    모션이 브랜드 같은 인상을 만들어냅니다.
+                  </p>
+                </div>
+                <div class="slide-visual">
+                  <div class="planet"></div>
+                </div>
+              </article>
+
+              <article class="slide">
+                <div class="slide-copy">
+                  <h3>Motion & Energy</h3>
+                  <p>
+                    정적인 레이아웃에 그치지 않고, 시각적인 리듬을 넣었습니다.
+                    살짝 떠 있는 카드, 돌아가는 오브젝트, 자동 슬라이드까지
+                    페이지 전체가 살아 움직입니다.
+                  </p>
+                </div>
+                <div class="slide-visual">
+                  <div class="bars">
+                    <span style="height: 120px"></span>
+                    <span style="height: 190px"></span>
+                    <span style="height: 150px"></span>
+                    <span style="height: 210px"></span>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="slider-controls">
+              <button class="slide-btn" id="prevBtn">←</button>
+              <button class="slide-btn" id="nextBtn">→</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="journey">
+        <div class="wrap">
+          <div class="section-title reveal-up">
+            <h2>Journey</h2>
+            <p>
+              성장 과정이나 프로젝트 흐름을 멋지게 보이게 해주는 타임라인
+              섹션입니다. 여기를 주인님 이력이나 활동 내용으로 바꾸면 자기소개
+              사이트 완성도가 확 올라갑니다.
+            </p>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item reveal-up" data-step="01">
+              <h3>관심에서 시작</h3>
+              <p>
+                무언가를 단순히 소비하는 것보다 직접 만드는 데 더 큰 재미를
+                느끼며, 웹과 코딩에 자연스럽게 빠져들었습니다.
+              </p>
+            </article>
+            <article class="timeline-item reveal-up" data-step="02">
+              <h3>감각적인 화면에 집중</h3>
+              <p>
+                기능만 되는 페이지보다, 열자마자 ‘와’ 하는 분위기를 주는 화면을
+                만들고 싶어서 애니메이션과 인터랙션에 집중했습니다.
+              </p>
+            </article>
+            <article class="timeline-item reveal-up" data-step="03">
+              <h3>나만의 스타일 구축</h3>
+              <p>
+                입체감, 유리 느낌, 부드러운 움직임, 강한 첫인상. 이런 요소들을
+                조합해 세하만의 톤을 가진 랜딩 페이지를 만들어가고 있습니다.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="wrap">
+          <div class="section-title reveal-up">
+            <h2>Let's Connect</h2>
+            <p>
+              마지막 섹션입니다. 이메일, 깃허브, 인스타, 블로그 같은 링크를
+              넣어두면 됩니다. 지금은 예시 버튼만 넣어두었습니다.
+            </p>
+          </div>
+
+          <div class="contact-wrap">
+            <article class="contact-card reveal-up">
+              <h3>Contact</h3>
+              <p>
+                협업, 프로젝트, 문의, 또는 그냥 제 사이트가 멋졌다고 말해주셔도
+                좋습니다.
+              </p>
+              <a href="mailto:yourmail@example.com">이메일 보내기</a>
+            </article>
+            <article class="contact-card reveal-up">
+              <h3>Social</h3>
+              <p>
+                깃허브, 인스타그램, 블로그, 유튜브 등 원하는 링크를 연결해서
+                세하의 세계를 확장해보세요.
+              </p>
+              <a href="#">소셜 링크 연결하기</a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">© 2026 SEHA. Designed to leave an impression.</div>
+    </footer>
+
+    <script>
+      const slides = document.getElementById("slides");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const totalSlides = slides.children.length;
+      let current = 0;
+
+      function updateSlider() {
+        slides.style.transform = `translateX(-${current * 100}%)`;
+      }
+
+      function nextSlide() {
+        current = (current + 1) % totalSlides;
+        updateSlider();
+      }
+
+      function prevSlide() {
+        current = (current - 1 + totalSlides) % totalSlides;
+        updateSlider();
+      }
+
+      nextBtn.addEventListener("click", nextSlide);
+      prevBtn.addEventListener("click", prevSlide);
+
+      setInterval(nextSlide, 5000);
+
+      const reveals = document.querySelectorAll(".reveal-up");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.14 },
+      );
+
+      reveals.forEach((el) => observer.observe(el));
+
+      const heroVisual = document.querySelector(".hero-visual");
+      const stack = document.querySelector(".stack");
+
+      heroVisual.addEventListener("mousemove", (e) => {
+        const rect = heroVisual.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        stack.style.transform = `rotateY(${x * 10}deg) rotateX(${y * -10}deg)`;
+      });
+
+      heroVisual.addEventListener("mouseleave", () => {
+        stack.style.transform = "rotateY(0deg) rotateX(0deg)";
+      });
+    </script>
+  </body>
+</html>
